@@ -1,119 +1,265 @@
 * {
-    font-family: "Bebas Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+}
+
+body {
+    background-color: #f0f0f0;
+}
+
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.navbar-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 5%;
+}
+
+.navbar-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5%;
+    
+
+}
+
+.timer-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.timer, .score {
+    font-size: 42px;
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 .title {
     text-align: center;
-    font-size: 70px;
+    font-size: 100px;
+    margin-top: 5%;
+    font-family: "New Amsterdam", sans-serif;
 }
 
-.img {
-    height: auto;
-    max-width: 25%;
-}
-  
 .img-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: -2%;
+    margin-bottom: 40px;
 }
-  
+
+.img {
+    max-width: 300px;
+    height: auto;
+}
+
 .guess-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
-  
+
 .letter-container {
     display: flex;
-    justify-content: center;
     gap: 10px;
 }
-  
-.letter input {
+
+.letter input, .space-indicator {
     width: 40px;
     height: 40px;
-    font-size: 40px;
+    font-size: 24px;
     text-align: center;
     border: none;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid #3498db;
+    background-color: transparent;
     outline: none;
 }
 
 .letter input:disabled {
-    background-color: #9fdda2;
-    color: #115f1d;
+    background-color: #2ecc71;
+    color: white;
     border-radius: 5px;
 }
 
-.hint {
+.hint-container {
     text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.dev-mode {
-    text-align: center;
-    color: #888;
-}
-
-.button-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .new-flag-button, .dev-mode-button {
-    background-color: #4CAF50; /* Green */
+.hint-button {
+    background-color: #3498db;
+    color: white;
     border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    padding: 10px 20px;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-.dev-mode-button {
-    background-color: rgb(210, 105, 30);
+.hint-button:hover {
+    background-color: #2980b9;
 }
 
-.dev-mode-button:hover {
-    background-color: rgb(184, 91, 25);
-}
-  
-.new-flag-button:hover  {
-    background-color: #45a049;
-}
-  
-.dev-mode {
-    text-align: center;
-    font-size: 18px;
+.hint-text {
     margin-top: 10px;
+    font-style: italic;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.score-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 52px;
+.result-message {
     text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.result-message.correct {
+    color: #2ecc71;
+}
+
+.game-over-message {
+    margin: 0 auto;
+    background: rgb(196, 196, 248);
+    padding: 5%;
+    border-radius: 20px;
+    max-width: 50%;
+}
+
+.game-over-message {
+    font-size: 52px;
+    margin: 0 auto;
+    margin-top: 10%;
+    background: linear-gradient(135deg, rgb(255, 195, 113), rgb(247, 121, 125));
+    padding: 40px;
+    border-radius: 25px;
+    max-width: 30%;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    animation: pop-in 0.5s ease;
   }
   
+  .game-over-title {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px #ff6f61;
+  }
   
-  @media (max-width: 600px) {
-    .score-container {
-      font-size: 16px;
-      padding: 8px;
+  .final-score {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  
+  .final-score span {
+    font-weight: bold;
+    color: #ff6f61;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .restart-button {
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .restart-button:hover {
+    background-color: #ff8566;
+    transform: scale(1.05);
+  }
+  
+  @keyframes pop-in {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
     }
   }
+  
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.dev-mode-button, .new-flag-button {
+    background-color: #24ba4e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.dev-mode {
+    text-align: center;
+}
+
+.dev-mode-button:hover, .new-flag-button:hover {
+    background-color: #197640;
+}
+
+.share {
+    text-align: center;
+}
+
+.share button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.share button:hover {
+    background-color: #27ae60;
+}
+
+.new-flag-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+}
+
+.next-icon {
+  margin-left: 5px;
+  vertical-align: middle;
+  height: 25px;
+  width: 25px;
+}

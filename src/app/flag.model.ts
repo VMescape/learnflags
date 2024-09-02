@@ -1,5 +1,7 @@
 export interface Flag {
-    flag: string;
-    country: string;
+    name: string;
     code: string;
-}
+    emoji: string;
+    unicode: string;
+    image: string;
+  }

@@ -1,36 +1,65 @@
-<h1 class="title">Learn Flags</h1>
-
-<!-- Score display -->
-<div class="score-container">
-  Score: {{ score }}
-</div>
-
-<div class="img-container">
-  <img class="img" [src]="currentFlag.flag">
-</div>
-
-<div class="guess-container">
-  <div class="letter-container">
-    <span *ngFor="let letter of guessArray; let i = index" class="letter">
-      <input 
-        type="text" 
-        maxlength="1" 
-        [value]="letter"
-        (input)="onInputEvent($event, i)"
-        (keydown)="onKeyDownEvent($event, i)"
-        [disabled]="isLetterCorrect(i)"
-        autocomplete="off"
-        [attr.data-index]="i"
-      >
-    </span>
+<div class="game-container" [class.game-over]="gameOver">
+  <div class="navbar-left">
+    <img src="assets/timer.gif" alt="Timer icon" class="timer-icon">
+    <span class="timer">{{ timeLeft }}s</span>
   </div>
-</div>
+  <div class="navbar-right">
+    <div class="score">Score: {{ score }}</div>
+  </div>
 
-<!-- Dev mode indicator, conditionally displayed -->
-<p *ngIf="devModeVisible" class="dev-mode">Dev mode: {{currentFlag.country}}</p>
+  <h1 class="title" *ngIf="!gameOver">Learn Flags</h1>
 
-<!-- Button container -->
-<div class="button-container">
-  <button class="dev-mode-button" (click)="showDev()">{{ devModeVisible ? 'Hide Dev' : 'Show Dev' }}</button>
-  <button class="new-flag-button" (click)="newFlag()">New Flag</button>
+  <div class="img-container" *ngIf="!gameOver">
+    <img class="img" [src]="currentFlag.image" alt="Flag to guess">
+  </div>
+
+  <div class="guess-container" *ngIf="!gameOver">
+    <div class="letter-container">
+      <span *ngFor="let letter of displayArray; let i = index" class="letter">
+        <ng-container *ngIf="letter !== ' '; else spaceBlock">
+          <input
+            type="text"
+            maxlength="1"
+            [value]="guessArray[i]"
+            (input)="onInputEvent($event, i)"
+            (keydown)="onKeyDownEvent($event, i)"
+            [disabled]="isLetterCorrect(i) || inputArray[i] === ' '"
+            [class.correct]="isLetterCorrect(i)"
+            autocomplete="off"
+            [attr.data-index]="i"
+          >
+        </ng-container>
+        <ng-template #spaceBlock>
+          <span class="space-indicator">&nbsp;</span> <!-- This will create an actual space -->
+        </ng-template>
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="gameOver" class="game-over-message">
+    <h2 class="game-over-title">🎉 Game Over! 🎉</h2>
+    <p class="final-score">Your final score: <span>{{ score }}</span></p>
+    <div class="button-container">
+      <button class="restart-button" (click)="restartGame()">🔄 Restart Game</button>
+    </div>
+  </div>
+  
+
+  <p *ngIf="hintText" class="hint-text">{{ hintText }}</p>
+  
+  <div *ngIf="showResult && !gameOver" class="result-message" [class.correct]="isCorrect">
+    {{ isCorrect ? 'Correct!' : 'Try again!' }}
+  </div>
+  
+  <!-- <p *ngIf="devModeVisible" class="dev-mode">Dev mode: {{currentFlag.name}}</p> -->
+  
+  <div class="button-container" *ngIf="!gameOver">
+    <div class="hint-container" *ngIf="!gameOver">
+      <button class="hint-button" (click)="showHint()" [disabled]="hintUsed">Get Hint</button>
+    </div>
+    <!-- <button class="dev-mode-button" (click)="showDev()">{{ devModeVisible ? 'Hide Dev' : 'Show Dev' }}</button> -->
+    <button class="new-flag-button" (click)="newFlag()">New Flag 
+      <img src="assets/arrow_forward.png" alt="Next" class="next-icon">
+    </button>
+  </div>
 </div>
