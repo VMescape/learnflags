@@ -121,19 +121,19 @@ export class AppComponent implements OnInit, AfterViewInit {
   
   newFlag(increaseTimer: boolean = false) {
     if (this.gameOver) return;
-
+  
     this.currentFlag = this.flagService.getRandomFlag();
     this.initializeArrays();
     this.hintUsed = false;
     this.hintText = '';
-    
+  
     if (increaseTimer) {
-      this.timeLeft = this.timeLeft + 10;
+      this.timeLeft = Math.min(this.timeLeft + 10, 60); // Cap at 60 seconds
     }
-    
+  
     clearInterval(this.timer);
     this.startTimer();
-    
+  
     setTimeout(() => {
       const inputs = document.querySelectorAll('.letter-container input:not([disabled])') as NodeListOf<HTMLInputElement>;
       inputs.forEach(input => {
@@ -142,6 +142,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.setFocusOnFirstInput();
     }, 0);
   }
+  
   
   restartGame() {
     this.score = 0;
@@ -181,7 +182,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.endRound();
       }
     }, 1000);
-  }
+  }  
   
 
   endRound() {
