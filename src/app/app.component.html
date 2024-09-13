@@ -1,16 +1,48 @@
-<div class="game-container" [class.game-over]="gameOver">
+<a [routerLink]="['/']">
+  <h1 class="title">Learn Flags</h1>
+</a>
+
+<!-- Leaderboard -->
+<div *ngIf="leaderboard" class="scoreboard">
+  <h2>Leaderboard</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let score of highScores">
+        <td>{{ score.name }}</td>
+        <td>{{ score.score }}</td>
+        <td>{{ score.date | date: 'shortDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="button leaderboard-button" (click)="hideLeaderboard()" *ngIf="leaderboard">Hide Leaderboard</button>
+
+</div>
+
+<!-- Game Content -->
+<div *ngIf="!leaderboard" class="game-container" [class.game-over]="gameOver">
   <div class="navbar-left">
-    <img src="assets/timer.gif" alt="Timer icon" class="timer-icon">
+    <img src="assets/timer.gif" alt="Timer icon" class="icon">
     <span class="timer">{{ timeLeft }}s</span>
   </div>
   <div class="navbar-right">
-    <div class="score">Score: {{ score }}</div>
+    <img src="assets/gem.png" alt="Gem icon" class="icon">
+    <div class="score">{{ score }}</div>
   </div>
-
-  <h1 class="title" *ngIf="!gameOver">Learn Flags</h1>
 
   <div class="img-container" *ngIf="!gameOver">
     <img class="img" [src]="currentFlag.image" alt="Flag to guess">
+  </div>
+
+  <div *ngIf="showStatus" class="status-indicator">
+    <img [src]="isCorrect ? 'assets/tick.png' : 'assets/close.png'" [alt]="isCorrect ? 'Correct' : 'Incorrect'" class="status-icon">
   </div>
 
   <div class="guess-container" *ngIf="!gameOver">
@@ -25,41 +57,52 @@
             (keydown)="onKeyDownEvent($event, i)"
             [disabled]="isLetterCorrect(i) || inputArray[i] === ' '"
             [class.correct]="isLetterCorrect(i)"
+            [class.disabled-input]="inputArray[i] === ' ' && !isLetterCorrect(i)"
             autocomplete="off"
             [attr.data-index]="i"
           >
         </ng-container>
         <ng-template #spaceBlock>
-          <span class="space-indicator">&nbsp;</span> <!-- This will create an actual space -->
+          <span class="space-indicator" [class.disabled-space]="inputArray[i] === ' ' && !isLetterCorrect(i)">&nbsp;</span>
         </ng-template>
       </span>
     </div>
   </div>
 
+
+
   <div *ngIf="gameOver" class="game-over-message">
     <h2 class="game-over-title">🎉 Game Over! 🎉</h2>
     <p class="final-score">Your final score: <span>{{ score }}</span></p>
+  
+    <div class="scoreboard-input">
+      <label class="player-name-label" for="playerName">Enter your name:</label>
+      <input id="playerName" class="player-name-input" [(ngModel)]="playerName" 
+             placeholder="Your Name" 
+             (keypress)="validateInput($event)" 
+             maxlength="10">
+      <button class="submit-button" (click)="saveScore()">Save Score</button>
+    </div>
+  
     <div class="button-container">
       <button class="restart-button" (click)="restartGame()">🔄 Restart Game</button>
     </div>
   </div>
   
-
   <p *ngIf="hintText" class="hint-text">{{ hintText }}</p>
   
-  <div *ngIf="showResult && !gameOver" class="result-message" [class.correct]="isCorrect">
+  <!-- <div *ngIf="showResult && !gameOver" class="result-message" [class.correct]="isCorrect">
     {{ isCorrect ? 'Correct!' : 'Try again!' }}
-  </div>
-  
-  <p *ngIf="devModeVisible" class="dev-mode">Dev mode: {{currentFlag.name}}</p>
+  </div> -->
   
   <div class="button-container" *ngIf="!gameOver">
-    <div class="hint-container" *ngIf="!gameOver">
-      <button class="hint-button" (click)="showHint()" [disabled]="hintUsed">Get Hint</button>
-    </div>
-    <!-- <button class="dev-mode-button" (click)="showDev()">{{ devModeVisible ? 'Hide Dev' : 'Show Dev' }}</button> -->
-    <button class="new-flag-button" (click)="newFlag()">New Flag 
+    <button class="button hint-button" (click)="showHint()" [disabled]="hintUsed">Use Hint</button>
+    <button class="button new-flag-button" (click)="newFlag()">New Flag 
       <img src="assets/arrow_forward.png" alt="Next" class="next-icon">
     </button>
   </div>
 </div>
+
+<!-- Button to Show Leaderboard -->
+<button class="button leaderboard-button" (click)="showLeaderboard()" *ngIf="!leaderboard">Show Leaderboard</button>
+

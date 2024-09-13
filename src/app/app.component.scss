@@ -1,3 +1,4 @@
+/* Reset and Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,63 +7,88 @@
     font-weight: 600;
 }
 
-body {
-    background-color: #f0f0f0;
+.no-scroll {
+    overflow: hidden; /* Prevents scrolling */
+    position: fixed; /* Fixes the body in place */
+    width: 100%; /* Ensures full width */
+    height: 100%; /* Ensures full height */
 }
 
+body {
+    background-color: #f0f0f0;
+    color: #333333;
+}
+
+/* Game Container */
 .game-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
+}
+
+/* Navigation Bars */
+.navbar-left,
+.navbar-right {
+    position: absolute;
+    top: 20px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .navbar-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 5%;
+    left: 20px;
 }
 
 .navbar-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 5%;
-    
-
+    right: 20px;
 }
 
-.timer-icon {
+/* Icons */
+.icon {
     width: 50px;
     height: 50px;
-    margin-right: 5px;
+    margin-right: 10px;
     vertical-align: middle;
 }
+
+/* Timer and Score */
 .timer, .score {
     font-size: 42px;
     font-weight: bold;
-    vertical-align: middle;
     display: inline-block;
+    color: #2c3e50;
+    font-family: "Roboto Mono", monospace;
+    vertical-align: middle;
 }
 
+/* Title */
 .title {
     text-align: center;
-    font-size: 100px;
-    margin-top: 5%;
+    font-size: 4rem;
+    margin-top: 20px;
     font-family: "New Amsterdam", sans-serif;
+    color: #3498db;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
+/* Image Container */
 .img-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
+    margin: 40px 0;
 }
 
 .img {
     max-width: 300px;
     height: auto;
+    border-radius: 10px;
 }
 
+/* Guess Container */
 .guess-container {
     display: flex;
     justify-content: center;
@@ -74,23 +100,74 @@ body {
     gap: 10px;
 }
 
+.scoreboard {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 75%;
+    margin: 0 auto;
+    margin-top: 5%;
+  }
+  
+  .scoreboard h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2%;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+
 .letter input, .space-indicator {
     width: 40px;
     height: 40px;
     font-size: 24px;
     text-align: center;
     border: none;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 2px solid black;
     background-color: transparent;
     outline: none;
 }
 
-.letter input:disabled {
+.space-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #7f8c8d;
+}
+
+.letter input.correct {
     background-color: #2ecc71;
     color: white;
     border-radius: 5px;
 }
 
+.letter input.disabled-input {
+    background-color: transparent; /* Make sure disabled spaces have no green background */
+
+}
+
+/* Hint Container */
 .hint-container {
     text-align: center;
     margin-bottom: 20px;
@@ -98,17 +175,24 @@ body {
 
 .hint-button {
     background-color: #3498db;
-    color: white;
+    color: #ffffff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hint-button:hover {
     background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.hint-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
 }
 
 .hint-text {
@@ -119,88 +203,138 @@ body {
     margin-bottom: 10px;
 }
 
+/* Result Message */
 .result-message {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    width: 25%;
+    margin: 0 auto; 
+    margin-top: 2%;
+    margin-bottom: 2%;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .result-message.correct {
-    color: #2ecc71;
+    background-color: #2ecc71;
+    color: #ffffff;
 }
 
-.game-over-message {
-    margin: 0 auto;
-    background: rgb(196, 196, 248);
-    padding: 5%;
-    border-radius: 20px;
-    max-width: 50%;
+.result-message.incorrect {
+    background-color: #e74c3c;
+    color: #ffffff;
 }
 
+/* Game Over Message */
 .game-over-message {
-    font-size: 52px;
-    margin: 0 auto;
-    margin-top: 10%;
-    background: linear-gradient(135deg, rgb(255, 195, 113), rgb(247, 121, 125));
+    margin: 50px auto;
+    background: #ffffff; 
     padding: 40px;
-    border-radius: 25px;
-    max-width: 30%;
+    max-width: 600px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    border: 5px solid #3498db; 
     animation: pop-in 0.5s ease;
-  }
-  
-  .game-over-title {
-    font-size: 2rem;
-    color: #ffffff;
+}
+
+.game-over-title {
+    font-size: 3rem;
+    color: #3498db;
     margin-bottom: 20px;
-    text-shadow: 2px 2px #ff6f61;
-  }
-  
-  .final-score {
-    font-size: 1.5rem;
-    color: #ffffff;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.final-score {
+    font-size: 1.8rem;
+    color: #2c3e50; 
     margin-bottom: 30px;
-  }
-  
-  .final-score span {
+}
+
+.final-score span {
     font-weight: bold;
-    color: #ff6f61;
-  }
-  
-  .button-container {
+    color: #e74c3c;     
+}
+
+.scoreboard-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.player-name-label {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.player-name-input {
+    width: 80%;
+    max-width: 300px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.player-name-input:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+}
+
+.status-indicator {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
+    animation: fade-in-out 1.5s ease-out;
+    position: absolute;
+    margin: 10%;
+    margin-top: -10%;
   }
   
-  .restart-button {
-    background-color: #ff6f61;
+  .status-icon {
+    width: 100px;
+    height: 100px;
+  }
+  
+  @keyframes fade-in-out {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+/* Buttons in Game Over */
+.submit-button, .restart-button {
+    background-color: #3498db;
     color: #ffffff;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 25px;
     border-radius: 50px;
     font-size: 1.2rem;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
-  
-  .restart-button:hover {
-    background-color: #ff8566;
-    transform: scale(1.05);
-  }
-  
-  @keyframes pop-in {
-    0% {
-      transform: scale(0.8);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+}
 
+.submit-button:hover, .restart-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* Button Container */
 .button-container {
     display: flex;
     justify-content: center;
@@ -208,58 +342,157 @@ body {
     margin-bottom: 20px;
 }
 
-.dev-mode-button, .new-flag-button {
-    background-color: #24ba4e;
+.button {
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 25px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.dev-mode {
-    text-align: center;
+/* Additional Buttons */
+.dev-mode-button, .new-flag-button {
+    background-color: #24ba4e;
 }
 
 .dev-mode-button:hover, .new-flag-button:hover {
     background-color: #197640;
+    transform: translateY(-2px);
 }
 
 .share {
     text-align: center;
+    margin-top: 20px;
 }
 
 .share button {
     background-color: #2ecc71;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 25px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .share button:hover {
     background-color: #27ae60;
+    transform: translateY(-2px);
 }
 
+.leaderboard-button {
+    background-color: #c30360;
+}
+
+/* New Flag Button Specifics */
 .new-flag-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button-content {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .next-icon {
-  margin-left: 5px;
-  vertical-align: middle;
-  height: 25px;
-  width: 25px;
+    margin-left: 5px;
+    vertical-align: middle;
+    height: 25px;
+    width: 25px;
+}
+
+/* Keyframes */
+@keyframes pop-in {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .title {
+        font-size: 3rem;
+    }
+
+    .game-over-message {
+        max-width: 90%;
+        padding: 20px;
+    }
+
+    .img {
+        max-width: 200px;
+    }
+
+    .letter input, .space-indicator {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .timer, .score {
+        font-size: 32px;
+    }
+
+    .player-name-input {
+        width: 90%;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .hint-button, .new-flag-button {
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .game-over-title {
+        font-size: 2rem;
+    }
+
+    .submit-button, .restart-button, .dev-mode-button, .new-flag-button, .share button {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .letter input, .space-indicator {
+        width: 20px;  /* Reduced width for smaller screens */
+        height: 30px;
+        font-size: 18px;  /* Adjust font size for readability */
+    }
+
+    .letter-container {
+        gap: 5px;  /* Adjust spacing between inputs for smaller screens */
+    }
+
+    .status-indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed; /* Use fixed positioning to keep it in the center of the viewport */
+        top: 35%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Offset by half its width and height to center it */
+        margin: 0; /* Remove any margin */
+        z-index: 1000; /* Ensure it appears above other elements */
+        animation: fade-in-out 1.5s ease-out;
+    }
+    
+    .status-icon {
+        width: 80px; /* Adjust size if needed */
+        height: 80px;
+    } 
 }
