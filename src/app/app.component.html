@@ -14,8 +14,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let score of highScores">
-        <td>{{ score.name }}</td>
+      <tr *ngFor="let score of highScores; let i = index">
+        <td [ngClass]="{'gold': i === 0}">{{ score.name }}</td>
         <td>{{ score.score }}</td>
         <td>{{ score.date | date: 'shortDate' }}</td>
       </tr>
@@ -81,12 +81,16 @@
              placeholder="Your Name" 
              (keypress)="validateInput($event)" 
              maxlength="10">
-      <button class="submit-button" (click)="saveScore()">Save Score</button>
+      <button class="submit button" (click)="saveScore()">Save Score</button>
     </div>
   
     <div class="button-container">
-      <button class="restart-button" (click)="restartGame()">🔄 Restart Game</button>
+      <button class="restart button" (click)="restartGame()">
+        <img src="assets/restart.png" alt="Restart" class="icon"> 
+        <span> Restart Game </span>
+      </button>
     </div>
+    
   </div>
   
   <p *ngIf="hintText" class="hint-text">{{ hintText }}</p>
@@ -104,5 +108,5 @@
 </div>
 
 <!-- Button to Show Leaderboard -->
-<button class="button leaderboard-button" (click)="showLeaderboard()" *ngIf="!leaderboard">Show Leaderboard</button>
+<button class="button leaderboard-button show" id="show" (click)="showLeaderboard()" *ngIf="!leaderboard">Show Leaderboard</button>
 

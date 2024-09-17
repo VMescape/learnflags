@@ -225,7 +225,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.timer = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
-        console.log(this.timeLeft)
       } else {
         this.endRound();
       }
@@ -279,7 +278,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   async showLeaderboard() {
     this.leaderboard = true;
     this.highScores = await this.dataService.getHighScores();
+  
+    // Sort high scores by score in descending order (highest score first)
+    this.highScores.sort((a, b) => b.score - a.score);
   }
+  
+  
+  
 
   hideLeaderboard() {
     this.leaderboard = false;

@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Kanit", sans-serif;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .no-scroll {
@@ -310,9 +310,17 @@ a {
     100% { opacity: 0; }
   }
 
-/* Buttons in Game Over */
-.submit-button, .restart-button {
+.restart {
     background-color: #3498db;
+    font-size: 2rem;
+}
+
+.submit {
+    background-color: #197640;
+}
+
+/* Buttons in Game Over */
+.button {
     color: #ffffff;
     border: none;
     padding: 12px 25px;
@@ -322,10 +330,22 @@ a {
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     margin: 5px;
+    align-items: center;
 }
 
-.submit-button:hover, .restart-button:hover {
+.restart img {
+    width: 30px; /* Adjust as needed */
+    height: auto;
+    margin-right: 8px; /* Space between the image and text */
+}
+
+.restart:hover {
     background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.submit:hover {
+    background-color: #125a30;
     transform: translateY(-2px);
 }
 
@@ -408,6 +428,13 @@ a {
     width: 25px;
 }
 
+.gold {
+    color: #ffd700; /* Gold color */
+    font-weight: bold;
+    font-size: 32px;
+  }
+  
+
 /* Keyframes */
 @keyframes pop-in {
     0% {
@@ -420,7 +447,16 @@ a {
     }
 }
 
-/* Responsive Design */
+// DESKTOP
+@media (min-width: 768px) {
+    #show {
+        margin: 10%;
+    }
+
+}
+
+
+// MOBILE
 @media (max-width: 768px) {
     .title {
         font-size: 3rem;
