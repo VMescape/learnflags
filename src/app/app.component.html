@@ -30,7 +30,7 @@
 <div *ngIf="!leaderboard" class="game-container" [class.game-over]="gameOver">
   <div class="navbar-left">
     <img src="assets/timer.gif" alt="Timer icon" class="icon">
-    <span class="timer">{{ timeLeft }}s</span>
+    <span class="timer">{{ timeLeft }}</span>
   </div>
   <div class="navbar-right">
     <img src="assets/gem.png" alt="Gem icon" class="icon">
@@ -107,6 +107,11 @@
   </div>
 </div>
 
-<!-- Button to Show Leaderboard -->
-<button class="button leaderboard-button show" id="show" (click)="showLeaderboard()" *ngIf="!leaderboard">Show Leaderboard</button>
+
+<!-- Replace button with the new icon -->
+<div class="navbar-right">
+    <a href="#" id="leaderboard-link">
+        <img src="assets/leaderboard.png" (click)="showLeaderboard()" alt="Leaderboard Icon" class="leaderboard-icon">
+    </a>
+</div>
 

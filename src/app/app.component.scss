@@ -27,6 +27,13 @@ body {
     position: relative;
 }
 
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
 /* Navigation Bars */
 .navbar-left,
 .navbar-right {
@@ -354,6 +361,22 @@ a {
     cursor: not-allowed;
 }
 
+/* New styles for the leaderboard icon */
+.leaderboard-icon {
+    border: 3px solid black;
+    border-radius: 50%;
+    padding: 10%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.leaderboard-icon:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+
 /* Button Container */
 .button-container {
     display: flex;
@@ -447,12 +470,18 @@ a {
     }
 }
 
-// DESKTOP
-@media (min-width: 768px) {
+/* Desktop and large screens */
+@media (min-width: 1024px) {
     #show {
-        margin: 10%;
+        margin: 10px;
     }
+}
 
+/* Laptops and smaller screens */
+@media (max-width: 1023px) {
+    .leaderboard-button {
+        margin: 0;
+    }
 }
 
 
@@ -531,4 +560,5 @@ a {
         width: 80px; /* Adjust size if needed */
         height: 80px;
     } 
+
 }
